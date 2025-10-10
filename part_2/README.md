@@ -1,3 +1,5 @@
+# Part 2: Using a Programming Language
+
 1. Develop a program in C, C++, C#, or Java based on the pseudocode algorithm created in Part 1. Your program should implement the steps outlined in the pseudocode to manage student enrollment effectively.
 2. Ensure that your program emphasizes the following concepts:
      - Proper choice of variable names: Use meaningful and descriptive names for variables to enhance code readability and maintainability.
