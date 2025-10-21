@@ -1,0 +1,259 @@
+// Class for every student object
+CLASS Student
+    // --- Attributes ---
+    PRIVATE Int studentId
+    PRIVATE String firstName
+    PRIVATE String lastName
+    PRIVATE Date dateOfBirth
+    PRIVATE String gender
+    PRIVATE Double gpa 
+    PRIVATE String currentSemester
+    PRIVATE String program
+    PRIVATE Int numCourses
+
+    // --- Constructor ---
+    PUBLIC CONSTRUCTOR Student(newId, newFirstName, newLastName, newDob, newGender, initialGpa)
+        SET studentId = newId
+        SET firstName = newFirstName
+        SET lastName = newLastName
+        SET dateOfBirth = newDob
+        SET gender = newGender
+        SET gpa = initialGpa
+        SET currentSemester = "Not Applicable"
+        SET program = "Undeclared"
+        SET numCourses = 0
+    END CONSTRUCTOR
+
+    // --- Getters ---
+    PUBLIC FUNCTION GetStudentId()
+        RETURN studentId
+    END FUNCTION
+
+    PUBLIC FUNCTION GetFirstName()
+        RETURN firstName
+    END FUNCTION
+
+    PUBLIC FUNCTION GetLastName()
+        RETURN lastName
+    END FUNCTION
+    
+    PUBLIC FUNCTION GetFullName()
+        RETURN firstName + " " + lastName
+    END FUNCTION
+
+    PUBLIC FUNCTION GetDateOfBirth()
+        RETURN dateOfBirth
+    END FUNCTION
+
+    PUBLIC FUNCTION GetGender()
+        RETURN gender
+    END FUNCTION
+
+    PUBLIC FUNCTION GetGpa()
+        RETURN gpa
+    END FUNCTION
+
+    PUBLIC FUNCTION GetCurrentSemester()
+        RETURN currentSemester
+    END FUNCTION
+
+    PUBLIC FUNCTION GetProgram()
+        RETURN program
+    END FUNCTION
+
+    PUBLIC FUNCTION GetNumCourses()
+        RETURN numCourses
+    END FUNCTION
+
+    // --- Setters (Mutator Procedures) ---
+    PUBLIC PROCEDURE SetFirstName(newFirstName)
+        SET firstName = newFirstName
+    END PROCEDURE
+    
+    PUBLIC PROCEDURE SetLastName(newLastName)
+        SET lastName = newLastName
+    END PROCEDURE
+
+    PUBLIC PROCEDURE SetDateOfBirth(newDob)
+        SET dateOfBirth = newDob
+    END PROCEDURE
+
+    PUBLIC PROCEDURE SetGender(newGender)
+        SET gender = newGender
+    END PROCEDURE
+
+    PUBLIC PROCEDURE SetGpa(newGpa)
+        SET gpa = newGpa
+    END PROCEDURE
+
+    PUBLIC PROCEDURE SetCurrentSemester(newSemester)
+        SET currentSemester = newSemester
+    END PROCEDURE
+
+    PUBLIC PROCEDURE SetProgram(newProgram)
+        SET program = newProgram
+    END PROCEDURE
+
+    PUBLIC PROCEDURE SetNumCourses(newNumCourses)
+        SET numCourses = newNumCourses
+    END PROCEDURE
+
+    // --- To String Method ---
+    PUBLIC FUNCTION ToString()
+        RETURN "ID: " + studentId + ", Name: " + firstName + " " + lastName + ", DOB: " + dateOfBirth + ", Gender: " + gender + ", Program: " + program + ", GPA: " + gpa + ", Semester: " + currentSemester + ", Courses: " + numCourses
+    END FUNCTION
+    
+END CLASS
+
+CLASS AppDriver
+
+    // Main entry point for the program
+    FUNCTION Main()
+        // --- Initialization ---
+        // Create a list to hold all the Student objects.
+        LIST OF Student studentList = CREATE new List()
+        // A variable to generate unique student IDs.
+        INT nextStudentId = 1001 
+        // A variable to control the main loop.
+        BOOLEAN isRunning = TRUE
+
+        // --- Main Program Loop ---
+        WHILE isRunning IS TRUE
+            // Display the menu to the user
+            DISPLAY "--- Student Enrollment System ---"
+            DISPLAY "1. Add a New Student"
+            DISPLAY "2. Register Student for a Program"
+            DISPLAY "3. Check a Student's GPA"
+            DISPLAY "4. Check a Student's Course Count"
+            DISPLAY "5. View a Student's Details"
+            DISPLAY "6. List All Students"
+            DISPLAY "7. Exit"
+            DISPLAY "Please enter your choice: "
+
+            // Get the user's selection
+            GET userChoice
+
+            // --- Menu Logic ---
+            SWITCH userChoice
+                CASE 1: // Add a New Student
+                    DISPLAY "Enter First Name: "
+                    GET firstName
+                    DISPLAY "Enter Last Name: "
+                    GET lastName
+                    DISPLAY "Enter Date of Birth (e.g., YYYY-MM-DD): "
+                    GET dob
+
+                    // Create a new student object with the next available ID
+                    Student newStudent = CREATE Student(nextStudentId, firstName, lastName, dob)
+                    
+                    // Add the new student to our list
+                    ADD newStudent TO studentList
+                    
+                    // Increment the ID for the next student
+                    SET nextStudentId = nextStudentId + 1
+
+                    DISPLAY "Success! Student " + newStudent.GetFullName() + " added with ID " + newStudent.GetStudentId() + "."
+                    BREAK
+
+                CASE 2: // Register Student for a Program
+                    DISPLAY "Enter Student ID to register: "
+                    GET idToRegister
+                    Student studentToRegister = FindStudentById(studentList, idToRegister)
+
+                    IF studentToRegister IS NOT NULL THEN
+                        DISPLAY "Enter Program Name: "
+                        GET programName
+                        DISPLAY "Enter Current Semester: "
+                        GET semester
+                        DISPLAY "Enter Number of Courses: "
+                        GET numCourses
+
+                        // Use the setter procedures to update the student's info
+                        studentToRegister.SetProgram(programName)
+                        studentToRegister.SetCurrentSemester(semester)
+                        studentToRegister.SetNumCourses(numCourses)
+
+                        DISPLAY "Student " + studentToRegister.GetStudentId() + " has been registered successfully."
+                    ELSE
+                        DISPLAY "Error: Student with ID " + idToRegister + " not found."
+                    END IF
+                    BREAK
+
+                CASE 3: // Check a Student's GPA
+                    DISPLAY "Enter Student ID to check GPA: "
+                    GET idToCheckGpa
+                    Student studentGpa = FindStudentById(studentList, idToCheckGpa)
+
+                    IF studentGpa IS NOT NULL THEN
+                        // In a real system, you might ask for a new GPA here.
+                        // For simplicity, we'll just display the current one.
+                        DISPLAY "GPA for " + studentGpa.GetFullName() + " is: " + studentGpa.GetGpa()
+                    ELSE
+                        DISPLAY "Error: Student with ID " + idToCheckGpa + " not found."
+                    END IF
+                    BREAK
+
+                CASE 4: // Check a Student's Course Count
+                    DISPLAY "Enter Student ID to check courses: "
+                    GET idToCheckCourses
+                    Student studentCourses = FindStudentById(studentList, idToCheckCourses)
+
+                    IF studentCourses IS NOT NULL THEN
+                        DISPLAY studentCourses.GetFullName() + " is registered for " + studentCourses.GetNumCourses() + " courses."
+                    ELSE
+                        DISPLAY "Error: Student with ID " + idToCheckCourses + " not found."
+                    END IF
+                    BREAK
+                    
+                CASE 5: // View a Student's Details
+                    DISPLAY "Enter Student ID to view details: "
+                    GET idToView
+                    Student studentToView = FindStudentById(studentList, idToView)
+
+                    IF studentToView IS NOT NULL THEN
+                        DISPLAY studentToView.ToString()
+                    ELSE
+                        DISPLAY "Error: Student with ID " + idToView + " not found."
+                    END IF
+                    BREAK
+
+                CASE 6: // List All Students
+                    IF studentList IS EMPTY THEN
+                        DISPLAY "There are no students in the system."
+                    ELSE
+                        DISPLAY "--- All Students ---"
+                        FOR EACH student IN studentList
+                            DISPLAY student.ToString()
+                        END FOR
+                    END IF
+                    BREAK
+
+                CASE 7: // Exit
+                    SET isRunning = FALSE
+                    DISPLAY "Exiting the program. Goodbye!"
+                    BREAK
+
+                DEFAULT: // Handle invalid input
+                    DISPLAY "Invalid choice. Please enter a number between 1 and 7."
+                    BREAK
+            END SWITCH
+
+            DISPLAY "Press Enter to continue..."
+            WAIT_FOR_USER_INPUT // Pauses the program so the user can see the result
+
+        END WHILE
+    END FUNCTION
+
+    // --- Helper Function ---
+    // A private function to find a student in the list by their ID.
+    // This avoids repeating the same search code in multiple places.
+    PRIVATE FUNCTION FindStudentById(list, studentId)
+        FOR EACH student IN list
+            IF student.GetStudentId() == studentId THEN
+                RETURN student // Return the found student object
+            END IF
+        END FOR
+        RETURN NULL // Return NULL if no student was found
+    END FUNCTION
+
+END CLASS
