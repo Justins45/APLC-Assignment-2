@@ -13,8 +13,7 @@ void main() {
   Scanner scanner = new Scanner(System.in);
 
   // temp data 
-  LocalDate dob = LocalDate.of(2002,4,9);
-  Student student = new Student(1001, "John", "Snow", dob, "male");
+  Student student = new Student( "John", "Snow", "2002-04-09", "male");
   System.out.println(student.toString());
 
   // initialize student list
@@ -46,6 +45,28 @@ void main() {
     is_running = false;
 
     switch (selection) {
+      case "1":
+        System.out.print("Please enter students first name: ");
+        String first_name = scanner.nextLine();
+        System.out.print("Please enter students last name: ");
+        String last_name = scanner.nextLine();
+        System.out.print("Please enter students date of birth (YYYY-MM-DD): ");
+        String dob_input = scanner.nextLine();
+        System.out.print("Please enter students gender: ");
+        String gender = scanner.nextLine();
+
+        // early exit for empty fields
+        if (!first_name.isEmpty() || !last_name.isEmpty() || !dob_input.isEmpty() || !gender.isEmpty()) {
+          System.out.println(ANSI_RED + "One or more of the inputted fields we empty.... please try again" + ANSI_RESET);
+          break;
+        } 
+        // pass early exit check
+        else {
+          Student new_student = new Student(first_name, last_name, dob_input, gender);
+          students.add(new_student);
+          System.out.println(ANSI_GREEN + "Student has been successfully added" + ANSI_RESET);
+        }
+        break;
       case "7":
         // turn off while loop
         is_running = false;
