@@ -28,6 +28,8 @@ void main() {
     boolean try_convert;
     Student found_student;
 
+    // blank line for readability
+    System.out.println("");
     System.out.println(ANSI_YELLOW + 
       "--- Student Enrollment System --- \n" +
       "1. Add a new Student \n" + 
@@ -42,9 +44,10 @@ void main() {
 
     System.out.println(selection);
 
-    is_running = false;
+    is_running = true;
 
     switch (selection) {
+      // Add new Student 
       case "1":
         System.out.print("Please enter students first name: ");
         String first_name = scanner.nextLine();
@@ -56,7 +59,7 @@ void main() {
         String gender = scanner.nextLine();
 
         // early exit for empty fields
-        if (!first_name.isEmpty() || !last_name.isEmpty() || !dob_input.isEmpty() || !gender.isEmpty()) {
+        if (first_name.isEmpty() || last_name.isEmpty() || dob_input.isEmpty() || gender.isEmpty()) {
           System.out.println(ANSI_RED + "One or more of the inputted fields we empty.... please try again" + ANSI_RESET);
           break;
         } 
@@ -67,6 +70,17 @@ void main() {
           System.out.println(ANSI_GREEN + "Student has been successfully added" + ANSI_RESET);
         }
         break;
+      case "6":
+        if (students.size() == 0) {
+          System.out.println(ANSI_RED + "There are no students to display....." + ANSI_RESET);
+        } else {
+          // print all students
+          System.out.println("Printing all students in the system: ");
+          for (Student s : students) {
+            System.out.println(ANSI_GREEN + s.toString() + ANSI_RESET);
+          }
+        }
+        break;  
       case "7":
         // turn off while loop
         is_running = false;
