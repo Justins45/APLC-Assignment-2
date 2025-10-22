@@ -44,7 +44,19 @@ void main() {
     System.out.println(selection);
 
     is_running = false;
+
+    switch (selection) {
+      case "7":
+        // turn off while loop
+        is_running = false;
+        System.out.println("Exiting Program. Goodbye!");
+        break;
+      default:
+        System.out.println(ANSI_RED + "Invalid Choice. Please enter a number between 1 and 7." + ANSI_RESET);
+        break;
+    }
   }
+  scanner.close();
 }
 
 public static Student FindStudentById(List<Student> list, int studentId) {
