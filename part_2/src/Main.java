@@ -58,15 +58,82 @@ void main() {
 
         // early exit for empty fields
         if (first_name.isEmpty() || last_name.isEmpty() || dob_input.isEmpty() || gender.isEmpty()) {
-          System.out.println(ANSI_RED + "One or more of the inputted fields we empty.... please try again" + ANSI_RESET);
+          System.out.println(ANSI_RED + "One or more of the inputted fields we empty.... please try again!" + ANSI_RESET);
           break;
         } 
         // pass early exit check
         else {
           Student new_student = new Student(first_name, last_name, dob_input, gender);
           students.add(new_student);
-          System.out.println(ANSI_GREEN + "Student has been successfully added" + ANSI_RESET);
+          System.out.println("Student has been successfully added!");
+          System.out.println(ANSI_GREEN + new_student.toString() + ANSI_RESET);
+
         }
+        break;
+      case "2":
+        System.out.print("Enter Student ID to register for a program: ");
+        id_number = scanner.nextLine();
+
+         // check if input has a number 
+        if (id_number.isEmpty()) {
+          System.out.println(ANSI_RED + "No Student ID entered.... Please enter an ID number." + ANSI_RESET);
+          break;
+        }
+        
+        // try to convert to integer
+        try {
+          id_int = Integer.parseInt(id_number);
+        } catch (NumberFormatException e) {
+          System.out.println(ANSI_RED + "Invalid Student ID entered.... Please enter a valid ID number." + ANSI_RESET);
+          break;
+        }
+
+        // check if number is negative
+        if (id_int < 0) {
+          System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)." + ANSI_RESET);
+          break;
+        } else {
+          found_student = FindStudentById(students, id_int);
+          if (found_student == null) {
+            System.out.println(ANSI_RED + "Student with provided ID was not found..." + ANSI_RESET);
+          } else {
+            // get program information 
+            System.out.print("Please enter the programs name: ");
+            String program_name = scanner.nextLine();
+
+            System.out.print("Please enter current semester: ");
+            String current_semester = scanner.nextLine();
+
+            System.out.print("Please enter number of courses enrolled: ");
+            String course_count_input = scanner.nextLine();
+            int int_course_count;
+            // try to convert to integer
+            try {
+              int_course_count = Integer.parseInt(course_count_input);
+            } catch (NumberFormatException e) {
+              System.out.println(ANSI_RED + "Invalid course count number entered... Please enter a valid course count number." + ANSI_RESET);
+              break;
+            }
+
+            if (program_name.isEmpty() || current_semester.isEmpty() || course_count_input.isEmpty()) {
+              System.out.println(ANSI_RED + "One or more of the inputted fields are empty... Please enter all fields." + ANSI_RESET);
+              break;
+            } 
+
+            if (int_course_count < 0) {
+              System.out.println(ANSI_RED + "Please enter a valid course count (greater than or equal to 0)." + ANSI_RESET); 
+              break;
+            } else {
+              found_student.setProgram(program_name);
+              found_student.setCurrentSemester(current_semester);
+              found_student.setNumCourses(int_course_count);
+              
+              System.out.println(ANSI_GREEN + "Student with ID " + id_int + " has been successful registered to " + program_name + " in " + current_semester + " with " + int_course_count + " courses." + ANSI_RESET);
+            }
+          }
+        }
+          
+
         break;
       case "3":
         System.out.print("Enter Students ID number to check GPA: ");
@@ -88,7 +155,7 @@ void main() {
 
         // check if number is negative
         if (id_int < 0) {
-          System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)" + ANSI_RESET);
+          System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)." + ANSI_RESET);
           break;
         } else {
           found_student = FindStudentById(students, id_int);
@@ -121,7 +188,7 @@ void main() {
 
         // check if number is negative
         if (id_int < 0) {
-          System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)" + ANSI_RESET);
+          System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)." + ANSI_RESET);
           break;
         } else {
           found_student = FindStudentById(students, id_int);
@@ -154,7 +221,7 @@ void main() {
 
         // check if number is negative
         if (id_int < 0) {
-          System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)" + ANSI_RESET);
+          System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)." + ANSI_RESET);
           break;
         } else {
           found_student = FindStudentById(students, id_int);
