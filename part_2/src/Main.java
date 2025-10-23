@@ -68,6 +68,39 @@ void main() {
           System.out.println(ANSI_GREEN + "Student has been successfully added" + ANSI_RESET);
         }
         break;
+      case "3":
+        System.out.print("Enter Students ID number to check GPA: ");
+        id_number = scanner.nextLine();
+        
+        // check if input has a number 
+        if (id_number.isEmpty()) {
+          System.out.println(ANSI_RED + "No Student ID entered.... Please enter an ID number." + ANSI_RESET);
+          break;
+        }
+        
+        // try to convert to integer
+        try {
+          id_int = Integer.parseInt(id_number);
+        } catch (NumberFormatException e) {
+          System.out.println(ANSI_RED + "Invalid Student ID entered.... Please enter a valid ID number." + ANSI_RESET);
+          break;
+        }
+
+        // check if number is negative
+        if (id_int < 0) {
+          System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)" + ANSI_RESET);
+          break;
+        } else {
+          found_student = FindStudentById(students, id_int);
+          if (found_student == null) {
+            System.out.println(ANSI_RED + "Student with provided ID was not found..." + ANSI_RESET);
+          } else {
+            System.out.println("Displaying Student GPA with id of " + id_int + ": ");
+            System.out.println(ANSI_GREEN + found_student.getGpa() + ANSI_RESET);
+          }
+        }
+
+        break;
       case "4":
         System.out.print("Enter Students ID number to view Course Count: ");
         id_number = scanner.nextLine();
@@ -95,7 +128,7 @@ void main() {
           if (found_student == null) {
             System.out.println(ANSI_RED + "Student with provided ID was not found..." + ANSI_RESET);
           } else {
-            System.out.println("Displaying Student Information: ");
+            System.out.println("Displaying Student Course count with id of " + id_int + ": ");
             System.out.println(ANSI_GREEN + found_student.getNumCourses() + ANSI_RESET);
           }
         }
