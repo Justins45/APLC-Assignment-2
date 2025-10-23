@@ -1,10 +1,8 @@
-import java.util.*;
-import java.time.*;
 // Student Class
 public class Student {
 
     // student ID counter
-    private static int _nextStudentID = 1000;
+    private static int _nextStudentID = 0;
 
     // --- Attributes ---
     private final int studentId;
@@ -57,7 +55,4 @@ public class Student {
     public String toString(){
         return "ID: " + studentId + ", Name: " + firstName + " " + lastName +  ", DOB: " + dateOfBirth + ", Gender: " + gender + ", Program: " + program + ", GPA: " + gpa + ", Semester: " + currentSemester + ", Courses: " + currentSemester;
     }
-
-
-
 }

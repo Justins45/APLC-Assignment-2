@@ -1,5 +1,4 @@
 import java.util.*;
-import java.time.*;
 
 
 // OPTIONAL CONSOLE TEXT COLOURS
@@ -25,7 +24,6 @@ void main() {
   while (is_running) {
     String id_number;
     int id_int;
-    boolean try_convert;
     Student found_student;
 
     // blank line for readability
@@ -70,6 +68,38 @@ void main() {
           System.out.println(ANSI_GREEN + "Student has been successfully added" + ANSI_RESET);
         }
         break;
+      case "5":
+        System.out.print("Please enter a Student ID to view details: ");
+        id_number = scanner.nextLine();
+
+        // check if input has a number 
+        if (id_number.isEmpty()) {
+          System.out.println(ANSI_RED + "No Student ID entered.... Please enter an ID number." + ANSI_RESET);
+          break;
+        }
+        
+        // try to convert to integer
+        try {
+          id_int = Integer.parseInt(id_number);
+        } catch (NumberFormatException e) {
+          System.out.println(ANSI_RED + "Invalid Student ID entered.... Please enter a valid ID number." + ANSI_RESET);
+          break;
+        }
+
+        // check if number is negative
+        if (id_int < 0) {
+          System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)" + ANSI_RESET);
+          break;
+        } else {
+          found_student = FindStudentById(students, id_int);
+          if (found_student == null) {
+            System.out.println(ANSI_RED + "Student with provided ID was not found..." + ANSI_RESET);
+          } else {
+            System.out.println("Displaying Student Information: ");
+            System.out.println(ANSI_GREEN + found_student.toString() + ANSI_RESET);
+          }
+        }
+        break;
       case "6":
         if (students.size() == 0) {
           System.out.println(ANSI_RED + "There are no students to display....." + ANSI_RESET);
@@ -94,10 +124,10 @@ void main() {
   scanner.close();
 }
 
-public static Student FindStudentById(List<Student> list, int studentId) {
-  for (Student student : list) {
-    if (student.getStudentId() == studentId) {
-      return student; // Return the found student object
+public static Student FindStudentById(List<Student> list, int id) {
+  for (Student s : list) {
+    if (s.getStudentId() == id) {
+      return s; // Return found student
     }
   }
   return null; // Return NULL if no student was found
