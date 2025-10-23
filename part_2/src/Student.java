@@ -1,12 +1,14 @@
-import java.util.*;
-
 // Student Class
 public class Student {
+
+    // student ID counter
+    private static int _nextStudentID = 0;
+
     // --- Attributes ---
-    private int studentId;
+    private final int studentId;
     private String  firstName;
     private String lastName;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String gender;
     private double gpa;
     private String currentSemester;
@@ -14,8 +16,8 @@ public class Student {
     private int numCourses;
 
     // --- Constructor ---
-    public Student(int newId, String newFirstName, String newLastName, Date newDob, String newGender){
-        this.studentId = newId;
+    public Student(String newFirstName, String newLastName, String newDob, String newGender){
+        this.studentId = _nextStudentID++;
         this.firstName = newFirstName;
         this.lastName = newLastName;
         this.dateOfBirth = newDob;
@@ -31,7 +33,7 @@ public class Student {
     public String getFirstName(){return firstName; }
     public String getLastName(){return lastName; }
     public String getFullName(){return firstName + " " + lastName; }
-    public Date getDateOfBirth(){return dateOfBirth; }
+    public String getDateOfBirth(){return dateOfBirth; }
     public String getGender(){return gender; }
     public double getGpa(){return gpa; }
     public String getCurrentSemester(){return currentSemester; }
@@ -41,7 +43,7 @@ public class Student {
     // --- Setters (Mutators) ---
     public void setFirstName(String newFirstName){this.firstName = newFirstName; }
     public void setLastName(String newLastName){this.lastName = newLastName; }
-    public void setDateOfBirth(Date newDob){this.dateOfBirth = newDob; }
+    public void setDateOfBirth(String newDob){this.dateOfBirth = newDob; }
     public void setGender(String newGender){this.gender = newGender; }
     public void setGpa(double newGpa){this.gpa = newGpa; }
     public void setCurrentSemester(String newCurrentSemester){this.currentSemester = newCurrentSemester; }
@@ -53,7 +55,4 @@ public class Student {
     public String toString(){
         return "ID: " + studentId + ", Name: " + firstName + " " + lastName +  ", DOB: " + dateOfBirth + ", Gender: " + gender + ", Program: " + program + ", GPA: " + gpa + ", Semester: " + currentSemester + ", Courses: " + currentSemester;
     }
-
-
-
 }
