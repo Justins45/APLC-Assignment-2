@@ -6,7 +6,7 @@ public class Student {
 
     // --- Attributes ---
     private final int studentId;
-    private String  firstName;
+    private String firstName;
     private String lastName;
     private String dateOfBirth;
     private String gender;

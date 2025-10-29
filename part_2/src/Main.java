@@ -16,11 +16,11 @@ void main() {
   List<Student> students = new ArrayList<>();
 
   // main loop
-  boolean is_running = true;
-  while (is_running) {
-    String id_number;
-    int id_int;
-    Student found_student;
+  boolean isRunning = true;
+  while (isRunning) {
+    String idNumber;
+    int idInt;
+    Student foundStudent;
 
     // blank line for readability
     System.out.println("");
@@ -37,96 +37,96 @@ void main() {
     System.out.print("Please enter your selection (number): " + ANSI_RESET);
     String selection = scanner.nextLine();
 
-    is_running = true;
+    isRunning = true;
     switch (selection) {
       // Add new Student 
       case "1":
         System.out.print("Please enter students first name: ");
-        String first_name = scanner.nextLine();
+        String firstName = scanner.nextLine();
         System.out.print("Please enter students last name: ");
-        String last_name = scanner.nextLine();
+        String lastName = scanner.nextLine();
         System.out.print("Please enter students date of birth (YYYY-MM-DD): ");
-        String dob_input = scanner.nextLine();
+        String dobInput = scanner.nextLine();
         System.out.print("Please enter students gender: ");
         String gender = scanner.nextLine();
 
         // early exit for empty fields
-        if (first_name.isEmpty() || last_name.isEmpty() || dob_input.isEmpty() || gender.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || dobInput.isEmpty() || gender.isEmpty()) {
           System.out.println(ANSI_RED + "One or more of the inputted fields we empty.... please try again!" + ANSI_RESET);
           break;
         } 
         // pass early exit check
         else {
-          Student new_student = new Student(first_name, last_name, dob_input, gender);
-          students.add(new_student);
+          Student newStudent = new Student(firstName, lastName, dobInput, gender);
+          students.add(newStudent);
           System.out.println("Student has been successfully added!");
-          System.out.println(ANSI_GREEN + new_student.toString() + ANSI_RESET);
+          System.out.println(ANSI_GREEN + newStudent.toString() + ANSI_RESET);
 
         }
         break;
       case "2":
         System.out.print("Enter Student ID to register for a program: ");
-        id_number = scanner.nextLine();
+        idNumber = scanner.nextLine();
 
          // check if input has a number 
-        if (id_number.isEmpty()) {
+        if (idNumber.isEmpty()) {
           System.out.println(ANSI_RED + "No Student ID entered.... Please enter an ID number." + ANSI_RESET);
           break;
         }
         
         // try to convert to integer
         try {
-          id_int = Integer.parseInt(id_number);
+          idInt = Integer.parseInt(idNumber);
         } catch (NumberFormatException e) {
           System.out.println(ANSI_RED + "Invalid Student ID entered.... Please enter a valid ID number." + ANSI_RESET);
           break;
         }
 
         // check if number is negative
-        if (id_int < 0) {
+        if (idInt < 0) {
           System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)." + ANSI_RESET);
           break;
         } else {
-          found_student = FindStudentById(students, id_int);
-          if (found_student == null) {
+          foundStudent = FindStudentById(students, idInt);
+          if (foundStudent == null) {
             System.out.println(ANSI_RED + "Student with provided ID was not found..." + ANSI_RESET);
           } else {
             // get program information 
             System.out.print("Please enter the programs name: ");
-            String program_name = scanner.nextLine();
+            String programName = scanner.nextLine();
 
             System.out.print("Please enter current semester: ");
-            String current_semester = scanner.nextLine();
+            String currentSemester = scanner.nextLine();
 
             System.out.print("Please enter number of courses enrolled: ");
-            String course_count_input = scanner.nextLine();
-            int int_course_count;
+            String courseCountInput = scanner.nextLine();
+            int intCourseCount;
 
             // try to convert to integer
             try {
-              int_course_count = Integer.parseInt(course_count_input);
+              intCourseCount = Integer.parseInt(courseCountInput);
             } catch (NumberFormatException e) {
               System.out.println(ANSI_RED + "Invalid course count number entered... Please enter a valid course count number." + ANSI_RESET);
               break;
             }
 
             // check for empty fields
-            if (program_name.isEmpty() || current_semester.isEmpty() || course_count_input.isEmpty()) {
+            if (programName.isEmpty() || currentSemester.isEmpty() || courseCountInput.isEmpty()) {
               System.out.println(ANSI_RED + "One or more of the inputted fields are empty... Please enter all fields." + ANSI_RESET);
               break;
             } 
 
             // check for positive number
-            if (int_course_count < 0) {
+            if (intCourseCount < 0) {
               System.out.println(ANSI_RED + "Please enter a valid course count (greater than or equal to 0)." + ANSI_RESET); 
               break;
             } else {
               // Pass all checks - register student for program
-              found_student.setProgram(program_name);
-              found_student.setCurrentSemester(current_semester);
-              found_student.setNumCourses(int_course_count);
-              
-              System.out.println(ANSI_GREEN + "Student with ID " + id_int + " has been successful registered to " + program_name + " in " + current_semester + " with " + int_course_count + " courses." + ANSI_RESET);
+              foundStudent.setProgram(programName);
+              foundStudent.setCurrentSemester(currentSemester);
+              foundStudent.setNumCourses(intCourseCount);
+
+              System.out.println(ANSI_GREEN + "Student with ID " + idInt + " has been successful registered to " + programName + " in " + currentSemester + " with " + intCourseCount + " courses." + ANSI_RESET);
             }
           }
         }
@@ -135,111 +135,111 @@ void main() {
         break;
       case "3":
         System.out.print("Enter Students ID number to check GPA: ");
-        id_number = scanner.nextLine();
+        idNumber = scanner.nextLine();
         
         // check if input has a number 
-        if (id_number.isEmpty()) {
+        if (idNumber.isEmpty()) {
           System.out.println(ANSI_RED + "No Student ID entered.... Please enter an ID number." + ANSI_RESET);
           break;
         }
         
         // try to convert to integer
         try {
-          id_int = Integer.parseInt(id_number);
+          idInt = Integer.parseInt(idNumber);
         } catch (NumberFormatException e) {
           System.out.println(ANSI_RED + "Invalid Student ID entered.... Please enter a valid ID number." + ANSI_RESET);
           break;
         }
 
         // check if number is negative
-        if (id_int < 0) {
+        if (idInt < 0) {
           System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)." + ANSI_RESET);
           break;
         } else {
           // locate Student
-          found_student = FindStudentById(students, id_int);
+          foundStudent = FindStudentById(students, idInt);
 
           // early exit if no student found
-          if (found_student == null) {
+          if (foundStudent == null) {
             System.out.println(ANSI_RED + "Student with provided ID was not found..." + ANSI_RESET);
           } else {
             // Display student GPA
-            System.out.println("Displaying Student GPA with id of " + id_int + ": ");
-            System.out.println(ANSI_GREEN + found_student.getGpa() + ANSI_RESET);
+            System.out.println("Displaying Student GPA with id of " + idInt + ": ");
+            System.out.println(ANSI_GREEN + foundStudent.getGpa() + ANSI_RESET);
           }
         }
 
         break;
       case "4":
         System.out.print("Enter Students ID number to view Course Count: ");
-        id_number = scanner.nextLine();
+        idNumber = scanner.nextLine();
 
         // check if input has a number 
-        if (id_number.isEmpty()) {
+        if (idNumber.isEmpty()) {
           System.out.println(ANSI_RED + "No Student ID entered.... Please enter an ID number." + ANSI_RESET);
           break;
         }
         
         // try to convert to integer
         try {
-          id_int = Integer.parseInt(id_number);
+          idInt = Integer.parseInt(idNumber);
         } catch (NumberFormatException e) {
           System.out.println(ANSI_RED + "Invalid Student ID entered.... Please enter a valid ID number." + ANSI_RESET);
           break;
         }
 
         // check if number is negative
-        if (id_int < 0) {
+        if (idInt < 0) {
           System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)." + ANSI_RESET);
           break;
         } else {
           // locate Student
-          found_student = FindStudentById(students, id_int);
+          foundStudent = FindStudentById(students, idInt);
 
           // early exit if no student found
-          if (found_student == null) {
+          if (foundStudent == null) {
             System.out.println(ANSI_RED + "Student with provided ID was not found..." + ANSI_RESET);
           } else {
             // Display student Course Count
-            System.out.println("Displaying Student Course count with id of " + id_int + ": ");
-            System.out.println(ANSI_GREEN + found_student.getNumCourses() + ANSI_RESET);
+            System.out.println("Displaying Student Course count with id of " + idInt + ": ");
+            System.out.println(ANSI_GREEN + foundStudent.getNumCourses() + ANSI_RESET);
           }
         }
 
         break;
       case "5":
         System.out.print("Please enter a Student ID to view details: ");
-        id_number = scanner.nextLine();
+        idNumber = scanner.nextLine();
 
         // check if input has a number 
-        if (id_number.isEmpty()) {
+        if (idNumber.isEmpty()) {
           System.out.println(ANSI_RED + "No Student ID entered.... Please enter an ID number." + ANSI_RESET);
           break;
         }
         
         // try to convert to integer
         try {
-          id_int = Integer.parseInt(id_number);
+          idInt = Integer.parseInt(idNumber);
         } catch (NumberFormatException e) {
           System.out.println(ANSI_RED + "Invalid Student ID entered.... Please enter a valid ID number." + ANSI_RESET);
           break;
         }
 
         // check if number is negative
-        if (id_int < 0) {
+        if (idInt < 0) {
           System.out.println(ANSI_RED + "Please enter a valid student ID Number (greater than or equal to 0)." + ANSI_RESET);
           break;
         } else {
           // locate Student
-          found_student = FindStudentById(students, id_int);
+          foundStudent = FindStudentById(students, idInt);
 
           // early exit if no student found
-          if (found_student == null) {
+          if (foundStudent == null) {
             System.out.println(ANSI_RED + "Student with provided ID was not found..." + ANSI_RESET);
           } else {
             // Display student Details
             System.out.println("Displaying Student Information: ");
-            System.out.println(ANSI_GREEN + found_student.toString() + ANSI_RESET);
+            System.out.println(ANSI_GREEN + foundStudent.toString() + ANSI_RESET);
           }
         }
         break;
@@ -257,7 +257,7 @@ void main() {
         break;  
       case "7":
         // turn off while loop
-        is_running = false;
+        isRunning = false;
         System.out.println("Exiting Program. Goodbye!");
         break;
       default:
