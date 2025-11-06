@@ -1,0 +1,34 @@
+user_list = {
+    "jason": {
+        "user_id": "117",
+        "user_name": "jason",
+        "email": "jason@compthinking.ca",
+        "password": "password117",
+        "role": "administrator",
+        "login_attempts_remaining": 4
+    },
+    "vivek": {
+        "user_id": "217",
+        "user_name": "vivek",
+        "email": "vivek@compthinking.ca",
+        "password": "password217",
+        "role": "administrator",
+        "login_attempts_remaining": 4
+    },
+    "justin": {
+        "user_id": "317",
+        "user_name": "justin",
+        "email": "justin@compthinking.ca",
+        "password": "password317",
+        "role": "viewer",
+        "login_attempts_remaining": 4
+    },
+    "jazmine": {
+        "user_id": "417",
+        "user_name": "jazmine",
+        "email": "jazmine@compthinking.ca",
+        "password": "password417",
+        "role": "editor",
+        "login_attempts_remaining": 4
+    }
+}
